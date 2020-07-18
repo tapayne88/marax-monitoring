@@ -4,6 +4,8 @@ import fileinput
 from maraxparser import createTimeBuckets, averageExchangerTemp
 import numpy as np
 import matplotlib.pyplot as plt
+import io
+from PIL import Image, ImageDraw, ImageFont
 
 secondsPerBucket = 60
 
@@ -23,4 +25,9 @@ lastPlot = {
 plt.plot(exchangerTempAverages)
 plt.axis([0, 5, 0, 150])
 plt.annotate(lastPlot['title'], xy=lastPlot['xy'], xytext=lastPlot['xytext'])
-plt.savefig("figure1")
+
+with io.BytesIO() as file:
+    plt.savefig(file)
+    file.seek(0)
+    img = Image.open(file)
+    img.save("figure1.png")
