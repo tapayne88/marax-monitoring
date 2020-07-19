@@ -1,29 +1,37 @@
 #! /usr/bin/env python3
 
 import fileinput
-from maraxparser import createTimeBuckets, averageExchangerTemp
+from maraxparser import createTimeBuckets, averageExchangerTemps, parseRow, extractExchangerTemps
 import numpy as np
 import matplotlib.pyplot as plt
 import io
 from PIL import Image, ImageDraw, ImageFont
 
-secondsPerBucket = 60
+useBuckets = False
+lines = fileinput.input()
 
-timeBuckets = createTimeBuckets(secondsPerBucket, fileinput.input())
-exchangerTempAverages = list(map(averageExchangerTemp, timeBuckets))
+if (useBuckets):
+    secondsPerBucket = 60
 
-print(exchangerTempAverages)
+    timeBuckets = createTimeBuckets(secondsPerBucket, lines)
+    exchangerTemps = list(map(averageExchangerTemps, timeBuckets))
+else:
+    parsedLines = list(map(parseRow, lines))
+    exchangerTemps = extractExchangerTemps(parsedLines)
 
-lastIndex = len(exchangerTempAverages) - 1
-xy = (lastIndex - 1, exchangerTempAverages[lastIndex])
+print(exchangerTemps)
+
+lastIndex = len(exchangerTemps) - 1
+xy = (lastIndex - 1, exchangerTemps[lastIndex])
 lastPlot = {
     'xy': xy,
     'title': str(round(xy[1], 1)) + '°C',
     'xytext': (xy[0] + 1.1, xy[1] + 1.1)
 }
 
-plt.plot(exchangerTempAverages)
-plt.axis([0, 5, 0, 150])
+plt.plot(exchangerTemps)
+plt.axis('off')
+plt.autoscale(False)
 plt.annotate(lastPlot['title'], xy=lastPlot['xy'], xytext=lastPlot['xytext'])
 
 with io.BytesIO() as file:

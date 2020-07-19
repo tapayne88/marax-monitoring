@@ -14,9 +14,12 @@ def createTimeBuckets(secondsPerBucket, lines):
             bucketIndex = bucketIndex + 1
             timeBuckets.append([])
 
-        timeBuckets[bucketIndex].append(parseTempCSV(line.rstrip()))
+        timeBuckets[bucketIndex].append(parseRow(line))
 
     return timeBuckets
+
+def parseRow(line):
+    return parseTempCSV(line.rstrip())
 
 def parseTempCSV(temp):
     [
@@ -38,7 +41,10 @@ def parseTempCSV(temp):
         "heating": heating == 1
     }
 
-def averageExchangerTemp(bucket):
-    noOfReadings = len(bucket)
-    total = reduce((lambda x, y: x + y["exchangerTemp"]), bucket, 0)
+def averageExchangerTemps(readings):
+    noOfReadings = len(readings)
+    total = reduce((lambda x, y: x + y["exchangerTemp"]), readings, 0)
     return total / noOfReadings
+
+def extractExchangerTemps(readings):
+    return list(map(lambda x: x["exchangerTemp"], readings))
