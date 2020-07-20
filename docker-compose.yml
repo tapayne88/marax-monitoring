@@ -7,6 +7,7 @@ services:
       - 3000:3000
     volumes:
       - grafana-storage:/var/lib/grafana
+      - ./influxdb-datasource.yaml:/etc/grafana/provisioning/datasources/influxdb-datasource.yaml
   telegraf:
     image: telegraf
     volumes:

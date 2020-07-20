@@ -1,0 +1,7 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    database: marax
+    url: http://influxdb:8086
