@@ -7,6 +7,19 @@ services:
       - 3000:3000
     volumes:
       - grafana-storage:/var/lib/grafana
+  telegraf:
+    image: telegraf
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf
+      - ./MOCK_DATA.csv:/tmp/data.csv
+  influxdb:
+    image: influxdb
+    ports:
+      - 8089:8089
+      - 8086:8086
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
 
 volumes:
   grafana-storage:
+  influxdb-storage:
