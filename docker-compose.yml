@@ -27,6 +27,12 @@ services:
       - 8086:8086
     volumes:
       - influxdb-storage:/var/lib/influxdb
+  pi-plotter:
+    build: .
+    depends_on:
+      - influxdb
+    volumes:
+      - ./pi-plotter:/usr/src/app
 
 volumes:
   grafana-storage:
