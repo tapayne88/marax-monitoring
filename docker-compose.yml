@@ -8,6 +8,9 @@ services:
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./influxdb-datasource.yaml:/etc/grafana/provisioning/datasources/influxdb-datasource.yaml
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
   telegraf:
     image: telegraf
     volumes:
