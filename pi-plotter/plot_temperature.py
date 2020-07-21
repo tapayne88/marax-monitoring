@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 import fileinput
 from maraxparser import createTimeBuckets, averageExchangerTemps, parseRow, extractExchangerTemps
 import numpy as np
