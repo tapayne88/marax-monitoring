@@ -5,6 +5,8 @@ services:
     image: grafana/grafana
     ports:
       - 3000:3000
+    depends_on:
+      - influxdb
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./config/influxdb-datasource.yaml:/etc/grafana/provisioning/datasources/influxdb-datasource.yaml
@@ -13,6 +15,8 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
   telegraf:
     image: telegraf
+    depends_on:
+      - influxdb
     volumes:
       - ./config/telegraf.conf:/etc/telegraf/telegraf.conf
       - ./MOCK_DATA.csv:/tmp/data.csv
