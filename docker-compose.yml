@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 services:
   grafana:
@@ -7,14 +7,14 @@ services:
       - 3000:3000
     volumes:
       - grafana-storage:/var/lib/grafana
-      - ./influxdb-datasource.yaml:/etc/grafana/provisioning/datasources/influxdb-datasource.yaml
+      - ./config/influxdb-datasource.yaml:/etc/grafana/provisioning/datasources/influxdb-datasource.yaml
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
   telegraf:
     image: telegraf
     volumes:
-      - ./telegraf.conf:/etc/telegraf/telegraf.conf
+      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf
       - ./MOCK_DATA.csv:/tmp/data.csv
   influxdb:
     image: influxdb
