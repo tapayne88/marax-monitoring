@@ -17,8 +17,8 @@ services:
       - marax-storage:/var/log/marax
   influxdb:
     image: influxdb
-    ports:
-      - 8086:8086
+    expose:
+      - 8086
     volumes:
       - influxdb-storage:/var/lib/influxdb
   grafana:
