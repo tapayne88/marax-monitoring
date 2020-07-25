@@ -19,7 +19,7 @@ services:
       - influxdb
     volumes:
       - ./config/telegraf.conf:/etc/telegraf/telegraf.conf
-      - ./MOCK_DATA.csv:/tmp/data.csv
+      - marax-storage:/var/log/marax
   influxdb:
     image: influxdb
     ports:
@@ -27,8 +27,12 @@ services:
       - 8086:8086
     volumes:
       - influxdb-storage:/var/lib/influxdb
+  marax-adapter:
+    build: ./containers/marax-adapter
+    volumes:
+      - marax-storage:/var/log/marax
   pi-plotter:
-    build: .
+    build: ./containers/pi-plotter
     depends_on:
       - influxdb
     volumes:
@@ -37,3 +41,4 @@ services:
 volumes:
   grafana-storage:
   influxdb-storage:
+  marax-storage:

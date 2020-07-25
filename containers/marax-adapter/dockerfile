@@ -1,0 +1,5 @@
+FROM alpine
+
+COPY ./serial_to_file.sh .
+
+CMD ["sh", "./serial_to_file.sh", "/var/log/marax/temp.log", "/dev/ttyUSB0"]
