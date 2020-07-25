@@ -3,6 +3,8 @@ version: "3"
 services:
   marax-adapter:
     build: ./containers/marax-adapter
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
     volumes:
       - marax-storage:/var/log/marax
   telegraf:
