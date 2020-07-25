@@ -1,5 +1,8 @@
 FROM alpine
 
-COPY ./serial_to_file.sh .
+COPY ./serial_to_file.sh /usr/local/bin/serial_to_file
+RUN chmod +x /usr/local/bin/serial_to_file
 
-CMD ["sh", "./serial_to_file.sh", "/var/log/marax/temp.log", "/dev/ttyUSB0"]
+RUN mkdir /var/log/marax
+
+CMD ["serial_to_file", "/var/log/marax/temp.log", "/dev/ttyUSB0"]
