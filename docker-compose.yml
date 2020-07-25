@@ -1,6 +1,24 @@
 version: "3"
 
 services:
+  marax-adapter:
+    build: ./containers/marax-adapter
+    volumes:
+      - marax-storage:/var/log/marax
+  telegraf:
+    image: telegraf
+    depends_on:
+      - influxdb
+      - marax-adapter
+    volumes:
+      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf
+      - marax-storage:/var/log/marax
+  influxdb:
+    image: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
   grafana:
     image: grafana/grafana
     ports:
@@ -13,24 +31,6 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-  telegraf:
-    image: telegraf
-    depends_on:
-      - influxdb
-    volumes:
-      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf
-      - marax-storage:/var/log/marax
-  influxdb:
-    image: influxdb
-    ports:
-      - 8089:8089
-      - 8086:8086
-    volumes:
-      - influxdb-storage:/var/lib/influxdb
-  marax-adapter:
-    build: ./containers/marax-adapter
-    volumes:
-      - marax-storage:/var/log/marax
   pi-plotter:
     build: ./containers/pi-plotter
     depends_on:
