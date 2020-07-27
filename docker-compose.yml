@@ -8,7 +8,8 @@ services:
     volumes:
       - marax-storage:/var/log/marax
   telegraf:
-    image: telegraf
+    # Pin to 1.14 - tailing log file doesn't work on 1.15
+    image: telegraf:1.14
     depends_on:
       - influxdb
       - marax-adapter

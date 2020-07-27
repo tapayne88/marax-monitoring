@@ -2,6 +2,6 @@
 
 while read LINE; do
   if [ "$LINE" != "" ]; then
-    echo "$(date +%s),$LINE" >> $2;
+    echo "$(date +%s),$LINE";
   fi
-done < $1
+done

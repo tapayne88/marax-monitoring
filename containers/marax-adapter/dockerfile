@@ -5,4 +5,4 @@ RUN chmod +x /usr/local/bin/serial_to_file
 
 RUN mkdir /var/log/marax
 
-CMD ["serial_to_file", "/dev/ttyUSB0", "/var/log/marax/temp.log"]
+CMD ["/bin/sh", "-c", "cat /dev/ttyUSB0 | serial_to_file | tee -a /var/log/marax/temp.log"]
