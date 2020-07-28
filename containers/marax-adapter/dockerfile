@@ -1,8 +1,8 @@
 FROM alpine
 
-COPY ./serial_to_file.sh /usr/local/bin/serial_to_file
-RUN chmod +x /usr/local/bin/serial_to_file
+COPY ./timestamp-line /usr/local/bin/timestamp-line
+RUN chmod +x /usr/local/bin/timestamp-line
 
 RUN mkdir /var/log/marax
 
-CMD ["/bin/sh", "-c", "cat /dev/ttyUSB0 | serial_to_file | tee -a /var/log/marax/temp.log"]
+CMD ["/bin/sh", "-c", "cat /dev/ttyUSB0 | timestamp-line | tee -a /var/log/marax/temp.log"]
