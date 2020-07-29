@@ -18,8 +18,8 @@ services:
       - marax-storage:/var/log/marax
   influxdb:
     image: influxdb
-    expose:
-      - 8086
+    ports:
+      - 8086:8086
     volumes:
       - influxdb-storage:/var/lib/influxdb
   grafana:
@@ -34,12 +34,6 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-  pi-plotter:
-    build: ./containers/pi-plotter
-    depends_on:
-      - influxdb
-    volumes:
-      - ./pi-plotter:/usr/src/app
 
 volumes:
   grafana-storage:
