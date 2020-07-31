@@ -30,7 +30,7 @@ services:
       - influxdb
     volumes:
       - grafana-storage:/var/lib/grafana
-      - ./config/influxdb-datasource.yaml:/etc/grafana/provisioning/datasources/influxdb-datasource.yaml
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
