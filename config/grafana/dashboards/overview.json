@@ -80,7 +80,7 @@
             },
             {
               "params": [
-                "previous"
+                "none"
               ],
               "type": "fill"
             }
@@ -225,7 +225,7 @@
             },
             {
               "params": [
-                "null"
+                "none"
               ],
               "type": "fill"
             }
@@ -322,7 +322,7 @@
             },
             {
               "params": [
-                "previous"
+                "none"
               ],
               "type": "fill"
             }
@@ -359,7 +359,7 @@
             },
             {
               "params": [
-                "previous"
+                "none"
               ],
               "type": "fill"
             }
@@ -504,7 +504,7 @@
             },
             {
               "params": [
-                "null"
+                "none"
               ],
               "type": "fill"
             }
@@ -595,7 +595,7 @@
             },
             {
               "params": [
-                "previous"
+                "none"
               ],
               "type": "fill"
             }
