@@ -1,5 +1,7 @@
 # Mara X Monitoring
 
+![Granfana Preview](./preview.png "Granfana Preview")
+
 Take serial connection from Mara X containing temperature data a persist in a database and expose via grafana.
 
 Docker will persist DB storage using volumes so restarts won't cause data loss.
