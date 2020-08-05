@@ -1,13 +1,17 @@
 # Mara X Monitoring
 
-Store Marax temperature data in DB and expose via grafana. Also plot temperature on inky wHAT display.
+Take serial connection from Mara X containing temperature data a persist in a database and expose via grafana.
 
-Generated mock data from [mockaroo](https://www.mockaroo.com) with the help of this [reddit post](https://www.reddit.com/r/espresso/comments/hft5zv/data_visualisation_lelit_marax_mod/)
+Docker will persist DB storage using volumes so restarts won't cause data loss.
+
+Tested on a Raspberry Pi.
 
 ## How to run
 
-Run grafana / influx / ingestion via docker-compose with the following
+Run grafana / influxDB / ingestion via docker-compose with the following
 
 ```shell
 [sudo] docker-compose up --build
 ```
+
+This can now be backgrounded.
