@@ -1,3 +1,0 @@
-* * * * * root /usr/local/bin/python3.8 /usr/src/app/plot_temperature.py >> /var/log/cron.log 2>&1
-* * * * * root sleep 30; /usr/local/bin/python3.8 /usr/src/app/plot_temperature.py >> /var/log/cron.log 2>&1
-# Don't remove the empty line at the end of this file. It is required to run the cron job
