@@ -429,29 +429,37 @@
     },
     {
       "datasource": "InfluxDB",
-      "description": "Thermal coil heating on or off",
+      "description": "State of heating element in the steam boiler, it can be on, off or standby",
       "fieldConfig": {
         "defaults": {
           "custom": {},
           "mappings": [
             {
-              "from": "",
+              "from": "2",
               "id": 0,
               "text": "On",
-              "to": "",
-              "type": 1,
+              "to": "3",
+              "type": 2,
               "value": "1"
             },
             {
-              "from": "",
+              "from": "1",
               "id": 1,
               "text": "Off",
-              "to": "",
-              "type": 1,
+              "to": "2",
+              "type": 2,
               "value": "0"
+            },
+            {
+              "from": "0",
+              "id": 2,
+              "text": "Standby",
+              "to": "1",
+              "type": 2,
+              "value": "Standby"
             }
           ],
-          "max": 1,
+          "max": 2,
           "min": 0,
           "noValue": "Off",
           "thresholds": {
@@ -462,8 +470,12 @@
                 "value": null
               },
               {
-                "color": "dark-red",
+                "color": "super-light-orange",
                 "value": 1
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 2
               }
             ]
           }
@@ -512,6 +524,8 @@
           "measurement": "tail",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT floor(((mode(\"heatOn\") + 1) * median(\"steamTempTarget\")) / 100) FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -533,7 +547,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Heat On/Off",
+      "title": "Heat On / Off / Standby",
       "type": "stat"
     },
     {
