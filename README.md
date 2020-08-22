@@ -25,3 +25,8 @@ This can now be backgrounded.
 - Lelit Mara X PL62 espresso machine ([link](https://marax.lelit.com/index-eng.html))
 - Serial to USB cable ([link](https://www.amazon.co.uk/gp/product/B01N4X3BJB/ref=ppx_yo_dt_b_asin_title_o06_s00?ie=UTF8&psc=1))
 - Computer cable of running linux / docker, like a raspberry pi ([link](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/))
+
+## Other
+
+- Mara X logs cleared daily
+- Influx DB retention policy set to 2 weeks, see [here](./config/influxdb/influxdb-init.iql)
