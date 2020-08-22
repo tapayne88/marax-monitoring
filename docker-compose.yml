@@ -22,6 +22,7 @@ services:
       - 8086:8086
     volumes:
       - influxdb-storage:/var/lib/influxdb
+      - ./config/influxdb:/docker-entrypoint-initdb.d
   grafana:
     image: grafana/grafana
     ports:
