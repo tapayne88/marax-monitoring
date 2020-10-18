@@ -1,4 +1,0 @@
-#!/bin/sh
-
-echo "truncating log"
-echo -n "" > /var/log/marax/temp.log

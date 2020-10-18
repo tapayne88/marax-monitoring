@@ -1,23 +1,9 @@
 version: "3"
 
 services:
-  marax-adapter:
-    build: ./containers/marax-adapter
-    devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
-    volumes:
-      - marax-storage:/var/log/marax
-  telegraf:
-    # Pin to 1.14 - tailing log file doesn't work on 1.15
-    image: telegraf:1.14
-    depends_on:
-      - influxdb
-      - marax-adapter
-    volumes:
-      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf
-      - marax-storage:/var/log/marax
   influxdb:
     image: influxdb
+    container_name: influxdb
     ports:
       - 8086:8086
     volumes:
@@ -25,6 +11,7 @@ services:
       - ./config/influxdb:/docker-entrypoint-initdb.d
   grafana:
     image: grafana/grafana
+    container_name: grafana
     ports:
       - 3000:3000
     depends_on:
@@ -35,9 +22,8 @@ services:
       - ./config/grafana/dashboards:/var/lib/grafana/dashboards
     environment:
       - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD='Ns[fIA;)L?iYwL#A0bMH'
 
 volumes:
   grafana-storage:
   influxdb-storage:
-  marax-storage:
