@@ -1,4 +1,8 @@
-FROM alpine
+FROM alpine:3.12
+
+RUN apk add alpine-conf
+RUN setup-timezone -z UTC
+RUN apk del alpine-conf
 
 COPY ./timestamp-line /usr/local/bin/timestamp-line
 RUN chmod +x /usr/local/bin/timestamp-line
