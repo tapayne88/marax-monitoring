@@ -8,7 +8,7 @@ services:
     volumes:
       - marax-storage:/var/log/marax
   telegraf:
-    image: telegraf
+    image: telegraf:1.17
     depends_on:
       - influxdb
       - marax-adapter
@@ -16,7 +16,7 @@ services:
       - ./config/telegraf.conf:/etc/telegraf/telegraf.conf
       - marax-storage:/var/log/marax
   influxdb:
-    image: influxdb
+    image: influxdb:1.8
     ports:
       - 8086:8086
     volumes:
