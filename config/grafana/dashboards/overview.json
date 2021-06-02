@@ -28,7 +28,6 @@
       "description": "Temperature recorded by heat exchanger probe",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "degree"
         },
         "overrides": []
@@ -59,8 +58,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -162,7 +164,6 @@
       "description": "Latest temperature from the heat exchanger",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "mappings": [],
           "max": 100,
@@ -210,9 +211,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "alias": "",
@@ -269,7 +271,6 @@
       "description": "Target and actual temperatures from steam boiler probe",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "degree"
         },
         "overrides": []
@@ -296,8 +297,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -432,7 +436,6 @@
       "description": "State of heating element in the steam boiler, it can be on, off or standby",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [
             {
               "from": "2",
@@ -501,9 +504,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "alias": "Thermal coil",
@@ -561,9 +565,7 @@
       "datasource": "InfluxDB",
       "description": "Count down of time heating element will remain on for",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 1,
@@ -588,8 +590,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -679,7 +684,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 26,
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [],
   "templating": {
