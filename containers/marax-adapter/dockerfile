@@ -16,6 +16,6 @@ COPY ./screenrc /etc/screenrc
 
 RUN mkdir /var/log/marax
 RUN touch /var/log/marax/screen.log
-RUN touch /var/log/marax/temp.log
+RUN touch /var/log/marax/stdout.log
 
-CMD ["/bin/sh", "-c", "crond -b -l 8 && screen -S serial-marax -L -d -m -c /etc/screenrc /dev/ttyUSB0 9600 && tail -f /var/log/marax/screen.log | timestamp-line | tee -a /var/log/marax/temp.log"]
+CMD ["/bin/sh", "-c", "crond -b -l 8 && screen -S serial-marax -L -d -m -c /etc/screenrc /dev/ttyUSB0 9600 && tail -f /var/log/marax/screen.log | timestamp-line | tee -a /var/log/marax/stdout.log"]
