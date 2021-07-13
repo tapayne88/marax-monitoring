@@ -1,7 +1,10 @@
 #!/bin/sh
 
+# Sample LINE
+# C1.19,085,000,068,0000,0
+
 while read LINE; do
-  if [ "$LINE" != "" ]; then
+  if echo "$LINE" | grep -Eq "C\d{1}\.\d{2},\d{3},\d{3},\d{3},\d{4},\d{1}"; then
     echo "$(date +%s),$LINE";
   fi
 done
