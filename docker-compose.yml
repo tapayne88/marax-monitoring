@@ -7,6 +7,7 @@ services:
       - /dev/ttyUSB0:/dev/ttyUSB0
     volumes:
       - marax-storage:/var/log/marax
+    restart: always
   telegraf:
     image: telegraf:1.17
     depends_on:
