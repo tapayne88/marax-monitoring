@@ -1,4 +1,6 @@
 #!/bin/sh
 
-echo "truncating log"
-echo -n "" > /var/log/marax/temp.log
+echo "truncating logs"
+echo -n "" > /var/log/marax/screen.log
+echo -n "" > /var/log/marax/stdout.log
+echo -n "" > /var/log/marax/stderr.log

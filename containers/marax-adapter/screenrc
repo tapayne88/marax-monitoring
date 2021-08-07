@@ -1,0 +1,2 @@
+logfile /var/log/marax/screen.log
+logfile flush 0.5
