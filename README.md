@@ -18,6 +18,15 @@ Run grafana / influxDB / ingestion via docker-compose with the following
 [sudo] docker-compose up --build
 ```
 
+### Restart Script
+
+Helper script to restart docker-compose process, useful when USB connection goes away.
+
+```shell
+# From root of repo
+ln -s "$(pwd)/bin/marax-restart" /usr/local/bin
+```
+
 This can now be backgrounded.
 
 ## What do I need?
