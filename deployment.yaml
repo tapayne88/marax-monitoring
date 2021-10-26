@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marax-monitoring
+  labels:
+    app: marax-monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marax-monitoring
+  template:
+    metadata:
+      labels:
+        app: marax-monitoring
+    spec:
+      nodeName: rpi4-4gb
+      containers:
+        - name: influxdb
+          image: influxdb
+          ports:
+            - containerPort: 8086
+          volumeMounts:
+            - name: influxdb-init
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+        - name: grafana
+          image: grafana/grafana
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 500m
+          volumeMounts:
+            - name: grafana-influxdb-yml
+              mountPath: /etc/grafana/provisioning/datasources
+            - name: grafana-overview-yml
+              mountPath: /etc/grafana/provisioning/dashboards
+            - name: grafana-overview-json
+              mountPath: /var/lib/grafana/dashboards
+      volumes:
+        - name: influxdb-init
+          configMap:
+            name: influxdb
+        - name: grafana-influxdb-yml
+          configMap:
+            name: grafana-influxdb-yml
+        - name: grafana-overview-yml
+          configMap:
+            name: grafana-overview-yml
+        - name: grafana-overview-json
+          configMap:
+            name: grafana-overview-json
