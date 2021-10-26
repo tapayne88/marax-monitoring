@@ -13,9 +13,13 @@ spec:
   - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-  - nodePort: 32597
+  - 
+    name: grafana
     port: 80
     targetPort: 3000
+  - name: influxdb
+    port: 8086
+    targetPort: 8086
   selector:
     app: marax-monitoring
   type: LoadBalancer
