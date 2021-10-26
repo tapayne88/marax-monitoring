@@ -18,7 +18,7 @@ items:
         - name: InfluxDB
           type: influxdb
           database: marax
-          url: http://influxdb:8086
+          url: http://influxdb.marax-monitoring.svc:8086
   kind: ConfigMap
   metadata:
     name: grafana-influxdb-yml
