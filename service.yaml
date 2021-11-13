@@ -16,6 +16,24 @@ spec:
     - name: grafana
       port: 3000
       targetPort: 3000
+  selector:
+    app: marax
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: marax
+  name: influxdb
+  namespace: marax
+spec:
+  allocateLoadBalancerNodePorts: true
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
     - name: influxdb
       port: 8086
       targetPort: 8086
