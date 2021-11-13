@@ -33,6 +33,8 @@ spec:
               value: marax
             - name: DOCKER_INFLUXDB_INIT_BUCKET
               value: default
+            - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+              value: ingenue-teasel-willful-addendum
           ports:
             - containerPort: 8086
           volumeMounts:

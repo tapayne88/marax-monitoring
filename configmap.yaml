@@ -18,6 +18,8 @@ items:
         - name: InfluxDB
           type: influxdb
           database: marax
+          user: admin
+          password: ingenue-teasel-willful-addendum
           url: http://influxdb.marax.local:8086
   kind: ConfigMap
   metadata:
