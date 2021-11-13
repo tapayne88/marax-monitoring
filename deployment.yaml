@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: influxdb
-          image: influxdb
+          image: influxdb:1.8
           env:
             - name: DOCKER_INFLUXDB_INIT_USERNAME
               valueFrom:
