@@ -31,8 +31,11 @@ spec:
             - containerPort: 3000
           resources:
             requests:
-              memory: 128Mi
-              cpu: 500m
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "900m"
           volumeMounts:
             - name: grafana-influxdb-yml
               mountPath: /etc/grafana/provisioning/datasources
