@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: marax-monitoring
+  name: marax
   labels:
-    app: marax-monitoring
+    app: marax
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: marax-monitoring
+      app: marax
   template:
     metadata:
       labels:
-        app: marax-monitoring
+        app: marax
     spec:
       nodeName: rpi4-4gb
       containers:

@@ -8,7 +8,7 @@ items:
   kind: ConfigMap
   metadata:
     name: influxdb
-    namespace: marax-monitoring
+    namespace: marax
 - apiVersion: v1
   data:
     influxdb.yml: |
@@ -18,11 +18,11 @@ items:
         - name: InfluxDB
           type: influxdb
           database: marax
-          url: http://influxdb.marax-monitoring.svc:8086
+          url: http://influxdb.marax.svc:8086
   kind: ConfigMap
   metadata:
     name: grafana-influxdb-yml
-    namespace: marax-monitoring
+    namespace: marax
 - apiVersion: v1
   data:
     overview.yml: |
@@ -53,7 +53,7 @@ items:
   kind: ConfigMap
   metadata:
     name: grafana-overview-yml
-    namespace: marax-monitoring
+    namespace: marax
 - apiVersion: v1
   data:
     overview.json: |
@@ -770,7 +770,7 @@ items:
   kind: ConfigMap
   metadata:
     name: grafana-overview-json
-    namespace: marax-monitoring
+    namespace: marax
 kind: List
 metadata:
   resourceVersion: ""
