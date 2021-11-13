@@ -20,7 +20,7 @@ items:
           database: marax
           user: admin
           password: ingenue-teasel-willful-addendum
-          url: http://localhost:8086
+          url: http://influxdb:8086
   kind: ConfigMap
   metadata:
     name: grafana-influxdb-yml
