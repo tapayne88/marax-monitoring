@@ -10,16 +10,15 @@ spec:
   allocateLoadBalancerNodePorts: true
   internalTrafficPolicy: Cluster
   ipFamilies:
-  - IPv4
+    - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-  - 
-    name: grafana
-    port: 80
-    targetPort: 3000
-  - name: influxdb
-    port: 8086
-    targetPort: 8086
+    - name: grafana
+      port: 3000
+      targetPort: 3000
+    - name: influxdb
+      port: 8086
+      targetPort: 8086
   selector:
     app: marax
   type: LoadBalancer
