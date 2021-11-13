@@ -43,6 +43,17 @@ spec:
               readOnly: true
         - name: grafana
           image: grafana/grafana
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: grafana
+                  key: username
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: grafana
+                  key: password
           ports:
             - containerPort: 3000
           resources:
