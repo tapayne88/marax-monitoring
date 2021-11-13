@@ -15,10 +15,24 @@ spec:
       labels:
         app: marax
     spec:
-      nodeName: rpi4-4gb
       containers:
         - name: influxdb
           image: influxdb
+          env:
+            - name: DOCKER_INFLUXDB_INIT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb
+                  key: username
+            - name: DOCKER_INFLUXDB_INIT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb
+                  key: password
+            - name: DOCKER_INFLUXDB_INIT_ORG
+              value: marax
+            - name: DOCKER_INFLUXDB_INIT_BUCKET
+              value: default
           ports:
             - containerPort: 8086
           volumeMounts:

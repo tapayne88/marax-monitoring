@@ -7,14 +7,10 @@ metadata:
   name: grafana
   namespace: marax
 spec:
-  allocateLoadBalancerNodePorts: true
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
     - name: grafana
       port: 3000
+      protocol: TCP
       targetPort: 3000
   selector:
     app: marax
@@ -28,14 +24,10 @@ metadata:
   name: influxdb
   namespace: marax
 spec:
-  allocateLoadBalancerNodePorts: true
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
     - name: influxdb
       port: 8086
+      protocol: TCP
       targetPort: 8086
   selector:
     app: marax
