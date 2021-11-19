@@ -8,17 +8,154 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "Mara X Temperatures",
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 2,
   "id": 2,
   "links": [],
+  "liveNow": false,
   "panels": [
+    {
+      "datasource": "InfluxDB",
+      "description": "State of heating element in the steam boiler, it can be on, off or standby",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "from": 2,
+                "result": {
+                  "text": "On"
+                },
+                "to": 3
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "text": "Off"
+                },
+                "to": 2
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "text": "Standby"
+                },
+                "to": 1
+              },
+              "type": "range"
+            }
+          ],
+          "max": 2,
+          "min": 0,
+          "noValue": "Off",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "super-light-orange",
+                "value": 1
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.3",
+      "targets": [
+        {
+          "alias": "Thermal coil",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tail",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT floor(((mode(\"heatOn\") + 1) * median(\"steamTempTarget\")) / 100) FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "heatOn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mode"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Heat On / Off / Standby",
+      "type": "stat"
+    },
     {
       "aliasColors": {},
       "bars": false,
@@ -28,7 +165,6 @@
       "description": "Temperature recorded by heat exchanger probe",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "degree"
         },
         "overrides": []
@@ -36,9 +172,9 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 17,
-        "x": 0,
+        "h": 7,
+        "w": 12,
+        "x": 5,
         "y": 0
       },
       "hiddenSeries": false,
@@ -59,8 +195,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "8.2.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -162,7 +301,6 @@
       "description": "Latest temperature from the heat exchanger",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "mappings": [],
           "max": 100,
@@ -194,8 +332,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 7,
+        "h": 7,
+        "w": 5,
         "x": 17,
         "y": 0
       },
@@ -210,9 +348,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "alias": "",
@@ -269,7 +408,6 @@
       "description": "Target and actual temperatures from steam boiler probe",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "degree"
         },
         "overrides": []
@@ -277,10 +415,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 17,
+        "h": 6,
+        "w": 11,
         "x": 0,
-        "y": 8
+        "y": 7
       },
       "hiddenSeries": false,
       "id": 4,
@@ -296,8 +434,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "8.2.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -428,129 +569,6 @@
       }
     },
     {
-      "datasource": "InfluxDB",
-      "description": "State of heating element in the steam boiler, it can be on, off or standby",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [
-            {
-              "from": "2",
-              "id": 0,
-              "text": "On",
-              "to": "3",
-              "type": 2,
-              "value": "1"
-            },
-            {
-              "from": "1",
-              "id": 1,
-              "text": "Off",
-              "to": "2",
-              "type": 2,
-              "value": "0"
-            },
-            {
-              "from": "0",
-              "id": 2,
-              "text": "Standby",
-              "to": "1",
-              "type": 2,
-              "value": "Standby"
-            }
-          ],
-          "max": 2,
-          "min": 0,
-          "noValue": "Off",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              },
-              {
-                "color": "super-light-orange",
-                "value": 1
-              },
-              {
-                "color": "semi-dark-red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 7,
-        "x": 17,
-        "y": 8
-      },
-      "id": 8,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.1.1",
-      "targets": [
-        {
-          "alias": "Thermal coil",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "none"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "tail",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT floor(((mode(\"heatOn\") + 1) * median(\"steamTempTarget\")) / 100) FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "heatOn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mode"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Heat On / Off / Standby",
-      "type": "stat"
-    },
-    {
       "aliasColors": {
         "Mode": "purple",
         "tail.mean": "purple"
@@ -560,19 +578,13 @@
       "dashes": false,
       "datasource": "InfluxDB",
       "description": "Count down of time heating element will remain on for",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 16
+        "w": 11,
+        "x": 11,
+        "y": 7
       },
       "hiddenSeries": false,
       "id": 10,
@@ -588,8 +600,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "8.2.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -679,7 +694,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 26,
+  "schemaVersion": 31,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -706,5 +721,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "0VkxsAigz",
-  "version": 0
+  "version": 3
 }

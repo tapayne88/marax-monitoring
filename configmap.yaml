@@ -7,6 +7,8 @@ items:
       CREATE RETENTION POLICY two_weeks ON marax DURATION 2w REPLICATION 1 DEFAULT;
   kind: ConfigMap
   metadata:
+    labels:
+      app.kubernetes.io/instance: marax
     name: influxdb
     namespace: marax
 - apiVersion: v1
@@ -23,6 +25,8 @@ items:
           url: http://influxdb:8086
   kind: ConfigMap
   metadata:
+    labels:
+      app.kubernetes.io/instance: marax
     name: grafana-influxdb-yml
     namespace: marax
 - apiVersion: v1
@@ -54,6 +58,8 @@ items:
             foldersFromFilesStructure: false
   kind: ConfigMap
   metadata:
+    labels:
+      app.kubernetes.io/instance: marax
     name: grafana-overview-yml
     namespace: marax
 - apiVersion: v1
@@ -771,6 +777,8 @@ items:
       }
   kind: ConfigMap
   metadata:
+    labels:
+      app.kubernetes.io/instance: marax
     name: grafana-overview-json
     namespace: marax
 kind: List
