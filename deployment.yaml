@@ -38,6 +38,13 @@ spec:
               value: ingenue-teasel-willful-addendum
           ports:
             - containerPort: 8086
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "900m"
           volumeMounts:
             - name: influxdb-init
               mountPath: /docker-entrypoint-initdb.d
