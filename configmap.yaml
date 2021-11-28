@@ -745,7 +745,7 @@ items:
             }
           }
         ],
-        "refresh": "10s",
+        "refresh": "5s",
         "schemaVersion": 26,
         "style": "dark",
         "tags": [],
@@ -759,6 +759,7 @@ items:
         "timepicker": {
           "nowDelay": "",
           "refresh_intervals": [
+            "5s",
             "10s",
             "30s",
             "1m",
