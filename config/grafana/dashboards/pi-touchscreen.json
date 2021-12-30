@@ -28,7 +28,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDB",
-      "description": "Temperature recorded by heat exchanger probe",
+      "description": "Temperature recorded by heat exchanger and steam boiler (target and actual) probes",
       "fieldConfig": {
         "defaults": {
           "unit": "degree"
@@ -186,7 +186,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Exchanger History",
+      "title": "Boiler History",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -583,5 +583,5 @@
   "timezone": "",
   "title": "Overview - Pi 7\" Touchscreen",
   "uid": "zRBOHNgRk",
-  "version": 3
+  "version": 4
 }
