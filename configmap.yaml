@@ -103,7 +103,7 @@ items:
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
-              "h": 8,
+              "h": 5,
               "w": 17,
               "x": 0,
               "y": 0
@@ -261,7 +261,7 @@ items:
               "overrides": []
             },
             "gridPos": {
-              "h": 8,
+              "h": 5,
               "w": 7,
               "x": 17,
               "y": 0
@@ -344,7 +344,7 @@ items:
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
-              "h": 8,
+              "h": 5,
               "w": 17,
               "x": 0,
               "y": 8
@@ -550,7 +550,7 @@ items:
               "overrides": []
             },
             "gridPos": {
-              "h": 8,
+              "h": 5,
               "w": 7,
               "x": 17,
               "y": 8
