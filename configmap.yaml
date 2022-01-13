@@ -636,8 +636,8 @@ items:
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
-              "h": 6,
-              "w": 24,
+              "h": 5,
+              "w": 17,
               "x": 0,
               "y": 16
             },
