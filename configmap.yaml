@@ -514,61 +514,36 @@ items:
               "type": "influxdb",
               "uid": "P951FEA4DE68E13C5"
             },
-            "description": "Steam now",
+            "description": "Latest temperature from the steam wand",
             "fieldConfig": {
               "defaults": {
-                "mappings": [
-                  {
-                    "options": {
-                      "from": 2,
-                      "result": {
-                        "text": "On"
-                      },
-                      "to": 3
-                    },
-                    "type": "range"
-                  },
-                  {
-                    "options": {
-                      "from": 1,
-                      "result": {
-                        "text": "Off"
-                      },
-                      "to": 2
-                    },
-                    "type": "range"
-                  },
-                  {
-                    "options": {
-                      "from": 0,
-                      "result": {
-                        "text": "Standby"
-                      },
-                      "to": 1
-                    },
-                    "type": "range"
-                  }
-                ],
-                "max": 2,
+                "decimals": 0,
+                "mappings": [],
+                "max": 100,
                 "min": 0,
-                "noValue": "Off",
+                "noValue": "0",
                 "thresholds": {
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "blue",
+                      "color": "light-blue",
                       "value": null
                     },
                     {
-                      "color": "super-light-orange",
-                      "value": 1
+                      "color": "dark-red",
+                      "value": 85
                     },
                     {
-                      "color": "semi-dark-red",
-                      "value": 2
+                      "color": "red",
+                      "value": 90
+                    },
+                    {
+                      "color": "super-light-red",
+                      "value": 95
                     }
                   ]
-                }
+                },
+                "unit": "degree"
               },
               "overrides": []
             },
@@ -580,9 +555,6 @@ items:
             },
             "id": 11,
             "options": {
-              "colorMode": "value",
-              "graphMode": "area",
-              "justifyMode": "auto",
               "orientation": "auto",
               "reduceOptions": {
                 "calcs": [
@@ -591,12 +563,13 @@ items:
                 "fields": "",
                 "values": false
               },
-              "textMode": "auto"
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
             },
             "pluginVersion": "8.3.3",
             "targets": [
               {
-                "alias": "Thermal coil",
+                "alias": "",
                 "datasource": {
                   "type": "influxdb",
                   "uid": "P951FEA4DE68E13C5"
@@ -626,13 +599,13 @@ items:
                   [
                     {
                       "params": [
-                        "heatOn"
+                        "exchangerTempActual"
                       ],
                       "type": "field"
                     },
                     {
                       "params": [],
-                      "type": "mode"
+                      "type": "last"
                     }
                   ]
                 ],
@@ -640,7 +613,7 @@ items:
               }
             ],
             "title": "Steam Now",
-            "type": "stat"
+            "type": "gauge"
           },
           {
             "datasource": {
