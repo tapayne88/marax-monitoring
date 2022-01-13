@@ -2,6 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    configmap.reloader.stakater.com/reload: "grafana-influxdb-yml,grafana-overview-json,grafana-overview-yml"
   name: marax
   namespace: marax
   labels:
