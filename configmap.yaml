@@ -75,66 +75,103 @@ items:
               "hide": true,
               "iconColor": "rgba(0, 211, 255, 1)",
               "name": "Annotations & Alerts",
+              "target": {
+                "limit": 100,
+                "matchAny": false,
+                "tags": [],
+                "type": "dashboard"
+              },
               "type": "dashboard"
             }
           ]
         },
         "description": "Mara X Temperatures",
         "editable": true,
-        "gnetId": null,
+        "fiscalYearStartMonth": 0,
         "graphTooltip": 2,
         "id": 2,
         "links": [],
+        "liveNow": false,
         "panels": [
           {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "InfluxDB",
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
             "description": "Temperature recorded by heat exchanger probe",
             "fieldConfig": {
               "defaults": {
-                "custom": {},
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": true,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "line"
+                  }
+                },
+                "mappings": [],
+                "max": 120,
+                "min": 0,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "transparent",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 94
+                    }
+                  ]
+                },
                 "unit": "degree"
               },
               "overrides": []
             },
-            "fill": 1,
-            "fillGradient": 0,
             "gridPos": {
               "h": 5,
               "w": 17,
               "x": 0,
               "y": 0
             },
-            "hiddenSeries": false,
             "id": 2,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": true,
-              "hideEmpty": false,
-              "hideZero": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": true
+            "options": {
+              "legend": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
+              }
             },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "percentage": false,
-            "pluginVersion": "7.1.1",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
+            "pluginVersion": "8.3.3",
             "targets": [
               {
                 "alias": "Exchanger °C",
@@ -174,62 +211,17 @@ items:
                 "tags": []
               }
             ],
-            "thresholds": [
-              {
-                "colorMode": "critical",
-                "fill": false,
-                "line": true,
-                "op": "gt",
-                "value": 94,
-                "yaxis": "right"
-              }
-            ],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
             "title": "Exchanger History",
-            "tooltip": {
-              "shared": true,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "degree",
-                "label": null,
-                "logBase": 1,
-                "max": "120",
-                "min": "0",
-                "show": true
-              },
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
+            "type": "timeseries"
           },
           {
-            "datasource": "InfluxDB",
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
             "description": "Latest temperature from the heat exchanger",
             "fieldConfig": {
               "defaults": {
-                "custom": {},
                 "decimals": 0,
                 "mappings": [],
                 "max": 100,
@@ -279,7 +271,7 @@ items:
               "showThresholdLabels": false,
               "showThresholdMarkers": true
             },
-            "pluginVersion": "7.1.1",
+            "pluginVersion": "8.3.3",
             "targets": [
               {
                 "alias": "",
@@ -319,64 +311,119 @@ items:
                 "tags": []
               }
             ],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Exchanger Now",
             "type": "gauge"
           },
           {
-            "aliasColors": {
-              "Steam °C": "orange",
-              "Target °C": "red"
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
             },
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "InfluxDB",
             "description": "Target and actual temperatures from steam boiler probe",
             "fieldConfig": {
               "defaults": {
-                "custom": {},
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": true,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "max": 150,
+                "min": 0,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
                 "unit": "degree"
               },
-              "overrides": []
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Steam °C"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "orange",
+                        "mode": "fixed"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Target °C"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "red",
+                        "mode": "fixed"
+                      }
+                    }
+                  ]
+                }
+              ]
             },
-            "fill": 1,
-            "fillGradient": 0,
             "gridPos": {
               "h": 5,
               "w": 17,
               "x": 0,
-              "y": 8
+              "y": 5
             },
-            "hiddenSeries": false,
             "id": 4,
-            "legend": {
-              "avg": false,
-              "current": true,
-              "max": false,
-              "min": false,
-              "show": true,
-              "total": false,
-              "values": true
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "percentage": false,
-            "pluginVersion": "7.1.1",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [
-              {
-                "alias": "Steam °C",
-                "yaxis": 1
+            "options": {
+              "legend": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
               }
-            ],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
+            },
+            "pluginVersion": "8.3.3",
             "targets": [
               {
                 "alias": "Steam °C",
@@ -453,77 +500,47 @@ items:
                 "tags": []
               }
             ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
             "title": "Steam Boiler",
-            "tooltip": {
-              "shared": true,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "degree",
-                "label": null,
-                "logBase": 1,
-                "max": "150",
-                "min": "0",
-                "show": true
-              },
-              {
-                "format": "degree",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
+            "type": "timeseries"
           },
           {
-            "datasource": "InfluxDB",
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
             "description": "State of heating element in the steam boiler, it can be on, off or standby",
             "fieldConfig": {
               "defaults": {
-                "custom": {},
                 "mappings": [
                   {
-                    "from": "2",
-                    "id": 0,
-                    "text": "On",
-                    "to": "3",
-                    "type": 2,
-                    "value": "1"
+                    "options": {
+                      "from": 2,
+                      "result": {
+                        "text": "On"
+                      },
+                      "to": 3
+                    },
+                    "type": "range"
                   },
                   {
-                    "from": "1",
-                    "id": 1,
-                    "text": "Off",
-                    "to": "2",
-                    "type": 2,
-                    "value": "0"
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "text": "Off"
+                      },
+                      "to": 2
+                    },
+                    "type": "range"
                   },
                   {
-                    "from": "0",
-                    "id": 2,
-                    "text": "Standby",
-                    "to": "1",
-                    "type": 2,
-                    "value": "Standby"
+                    "options": {
+                      "from": 0,
+                      "result": {
+                        "text": "Standby"
+                      },
+                      "to": 1
+                    },
+                    "type": "range"
                   }
                 ],
                 "max": 2,
@@ -553,7 +570,7 @@ items:
               "h": 5,
               "w": 5,
               "x": 17,
-              "y": 8
+              "y": 5
             },
             "id": 8,
             "options": {
@@ -570,7 +587,7 @@ items:
               },
               "textMode": "auto"
             },
-            "pluginVersion": "7.1.1",
+            "pluginVersion": "8.3.3",
             "targets": [
               {
                 "alias": "Thermal coil",
@@ -612,58 +629,119 @@ items:
                 "tags": []
               }
             ],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Heat On / Off / Standby",
             "type": "stat"
           },
           {
-            "aliasColors": {
-              "Mode": "purple",
-              "tail.mean": "purple"
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
             },
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "InfluxDB",
             "description": "Count down of time heating element will remain on for",
             "fieldConfig": {
               "defaults": {
-                "custom": {}
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": true,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "max": 1500,
+                "min": 0,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "short"
               },
-              "overrides": []
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "Mode"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "purple",
+                        "mode": "fixed"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "tail.mean"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "purple",
+                        "mode": "fixed"
+                      }
+                    }
+                  ]
+                }
+              ]
             },
-            "fill": 1,
-            "fillGradient": 0,
             "gridPos": {
               "h": 5,
               "w": 17,
               "x": 0,
-              "y": 16
+              "y": 10
             },
-            "hiddenSeries": false,
             "id": 10,
-            "legend": {
-              "avg": false,
-              "current": true,
-              "max": false,
-              "min": false,
-              "show": true,
-              "total": false,
-              "values": true
+            "options": {
+              "legend": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
+              }
             },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "percentage": false,
-            "pluginVersion": "7.1.1",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
+            "pluginVersion": "8.3.3",
             "targets": [
               {
                 "alias": "Mode",
@@ -703,50 +781,141 @@ items:
                 "tags": []
               }
             ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
             "title": "Fast Heating",
-            "tooltip": {
-              "shared": true,
-              "sort": 0,
-              "value_type": "individual"
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
             },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": "1500",
-                "min": "0",
-                "show": true
+            "description": "Steam Temp Target vs Now",
+            "fieldConfig": {
+              "defaults": {
+                "mappings": [
+                  {
+                    "options": {
+                      "from": 2,
+                      "result": {
+                        "text": "On"
+                      },
+                      "to": 3
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "text": "Off"
+                      },
+                      "to": 2
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 0,
+                      "result": {
+                        "text": "Standby"
+                      },
+                      "to": 1
+                    },
+                    "type": "range"
+                  }
+                ],
+                "max": 2,
+                "min": 0,
+                "noValue": "Off",
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    },
+                    {
+                      "color": "super-light-orange",
+                      "value": 1
+                    },
+                    {
+                      "color": "semi-dark-red",
+                      "value": 2
+                    }
+                  ]
+                }
               },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 5,
+              "x": 17,
+              "y": 10
+            },
+            "id": 11,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.3.3",
+            "targets": [
               {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
+                "alias": "Thermal coil",
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "none"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "tail",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "query": "SELECT floor(((mode(\"heatOn\") + 1) * median(\"steamTempTarget\")) / 100) FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+                "rawQuery": true,
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "heatOn"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "mode"
+                    }
+                  ]
+                ],
+                "tags": []
               }
             ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
+            "title": "Steam Temp Target vs Now",
+            "type": "stat"
           }
         ],
         "refresh": "5s",
-        "schemaVersion": 26,
+        "schemaVersion": 34,
         "style": "dark",
         "tags": [],
         "templating": {
@@ -774,7 +943,8 @@ items:
         "timezone": "",
         "title": "Overview",
         "uid": "0VkxsAigz",
-        "version": 0
+        "version": 2,
+        "weekStart": ""
       }
   kind: ConfigMap
   metadata:
