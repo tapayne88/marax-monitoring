@@ -1,0 +1,18 @@
+apiVersion: v1
+data:
+  influxdb.yml: |
+    apiVersion: 1
+
+    datasources:
+      - name: InfluxDB
+        type: influxdb
+        database: marax
+        user: admin
+        password: ingenue-teasel-willful-addendum
+        url: http://influxdb:8086
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: marax
+  name: grafana-influxdb-yml
+  namespace: marax

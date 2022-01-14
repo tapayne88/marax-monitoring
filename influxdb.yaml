@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  influxdb-init.iql: |
+    CREATE DATABASE marax;
+    CREATE RETENTION POLICY two_weeks ON marax DURATION 2w REPLICATION 1 DEFAULT;
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: marax
+  name: influxdb
+  namespace: marax
