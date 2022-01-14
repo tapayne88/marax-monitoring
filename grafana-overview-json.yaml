@@ -473,15 +473,15 @@ data:
                   },
                   {
                     "color": "dark-red",
-                    "value": 120
+                    "value": 115
                   },
                   {
                     "color": "red",
-                    "value": 128
+                    "value": 120
                   },
                   {
                     "color": "super-light-red",
-                    "value": 135
+                    "value": 123
                   }
                 ]
               },
