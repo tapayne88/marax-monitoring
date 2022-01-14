@@ -111,6 +111,10 @@ data:
           "targets": [
             {
               "alias": "Exchanger °C",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
               "groupBy": [
                 {
                   "params": [
@@ -128,6 +132,8 @@ data:
               "measurement": "tail",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT last(\"exchangerTempActual\") FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -546,6 +552,17 @@ data:
                 ]
               ],
               "tags": []
+            },
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "hide": false,
+              "query": "SELECT last(\"steamTempTarget\") FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series"
             }
           ],
           "title": "Steam Now",
@@ -862,7 +879,7 @@ data:
       "timezone": "",
       "title": "Overview",
       "uid": "0VkxsAigz",
-      "version": 2,
+      "version": 8,
       "weekStart": ""
     }
 kind: ConfigMap
