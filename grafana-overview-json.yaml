@@ -511,7 +511,7 @@ data:
           "pluginVersion": "8.3.3",
           "targets": [
             {
-              "alias": "",
+              "alias": "Actual Temp",
               "datasource": {
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
@@ -554,6 +554,7 @@ data:
               "tags": []
             },
             {
+              "alias": "Target Temp",
               "datasource": {
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
@@ -850,7 +851,7 @@ data:
           "type": "stat"
         }
       ],
-      "refresh": "5s",
+      "refresh": "",
       "schemaVersion": 34,
       "style": "dark",
       "tags": [],
@@ -879,7 +880,7 @@ data:
       "timezone": "",
       "title": "Overview",
       "uid": "0VkxsAigz",
-      "version": 8,
+      "version": 9,
       "weekStart": ""
     }
 kind: ConfigMap
