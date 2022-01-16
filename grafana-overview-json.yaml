@@ -461,7 +461,6 @@ data:
             "defaults": {
               "decimals": 0,
               "mappings": [],
-              "max": 100,
               "min": 0,
               "noValue": "0",
               "thresholds": {
@@ -880,7 +879,7 @@ data:
       "timezone": "",
       "title": "Overview",
       "uid": "0VkxsAigz",
-      "version": 9,
+      "version": 2,
       "weekStart": ""
     }
 kind: ConfigMap
