@@ -2,30 +2,23 @@
 
 ![Granfana Preview](./preview.png "Granfana Preview")
 
-Take serial connection from Mara X containing temperature data a persist in a database and expose via grafana.
-
-Docker will persist DB storage using volumes so restarts won't cause data loss.
-
-Tested on a Raspberry Pi. Requires companion [marax-telegraf-agent](https://github.com/laebshade/marax-telegraf-agent) docker container running on Raspberry Pi Zero W or better.
+Kubernetes-based InfluxDB and Grafana Deployment that ingests and graphs metrics pushed from [marax-telegraf-agent](https://github.com/laebshade/marax-telegraf-agent) docker container running on Raspberry Pi Zero 2 W.
 
 All credit to the author of this [post](https://www.reddit.com/r/espresso/comments/hft5zv/data_visualisation_lelit_marax_mod/) for doing so much of the ground work!
 
 ## How to run
 
-Run grafana / influxDB / ingestion via docker-compose with the following
+Apply all files to your Kubernetes cluster:
 
 ```shell
-[sudo] docker-compose up --build
+cat *.yaml | kubectl apply -f -
 ```
 
-This can now be backgrounded.
 
 ## What do I need?
 
 - Lelit Mara X PL62 espresso machine ([link](https://marax.lelit.com/index-eng.html))
 - Serial to USB cable ([link](https://www.amazon.co.uk/gp/product/B01N4X3BJB/ref=ppx_yo_dt_b_asin_title_o06_s00?ie=UTF8&psc=1))
+- https://github.com/bitnami-labs/sealed-secrets and updating the relevant sealed secrets manifests.
 - Computer capable of running linux & Docker, like a Raspberry Pi ([link](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/))
-
-## Other
-
-- Influx DB retention policy set to 2 weeks, see [here](./config/influxdb/influxdb-init.iql)
+- Kubernetes cluster on your LAN to run InfluxDB and Grafana
