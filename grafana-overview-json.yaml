@@ -850,7 +850,7 @@ data:
           "type": "stat"
         }
       ],
-      "refresh": "",
+      "refresh": "5s",
       "schemaVersion": 34,
       "style": "dark",
       "tags": [],
