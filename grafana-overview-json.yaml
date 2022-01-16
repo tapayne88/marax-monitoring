@@ -1,4 +1,10 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: marax
+  name: grafana-overview-json
+  namespace: marax
 data:
   overview.json: |
     {
@@ -27,7 +33,7 @@ data:
       "graphTooltip": 2,
       "id": 2,
       "links": [],
-      "liveNow": false,
+      "liveNow": true,
       "panels": [
         {
           "datasource": {
@@ -882,9 +888,3 @@ data:
       "version": 2,
       "weekStart": ""
     }
-kind: ConfigMap
-metadata:
-  labels:
-    app.kubernetes.io/instance: marax
-  name: grafana-overview-json
-  namespace: marax
