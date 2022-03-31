@@ -8,9 +8,6 @@ metadata:
   namespace: marax
 spec:
   allocateLoadBalancerNodePorts: true
-  clusterIP: 10.152.183.11
-  clusterIPs:
-  - 10.152.183.11
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4
