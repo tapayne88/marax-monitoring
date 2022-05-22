@@ -1,12 +1,13 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    configmap.reloader.stakater.com/reload: "grafana-influxdb-yml,grafana-overview-json,grafana-overview-yml"
-  name: marax
-  namespace: marax
+    configmap.reloader.stakater.com/reload: grafana-influxdb-yml,grafana-overview-json,grafana-overview-yml
   labels:
     app: marax
+  name: marax
+  namespace: marax
 spec:
   replicas: 1
   selector:
@@ -18,77 +19,77 @@ spec:
         app: marax
     spec:
       containers:
-        - name: influxdb
-          image: influxdb:1.8
-          env:
+        - env:
             - name: DOCKER_INFLUXDB_INIT_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: influxdb
                   key: username
+                  name: influxdb
             - name: DOCKER_INFLUXDB_INIT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: influxdb
                   key: password
+                  name: influxdb
             - name: DOCKER_INFLUXDB_INIT_ORG
               value: marax
             - name: DOCKER_INFLUXDB_INIT_BUCKET
               value: default
             - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
               value: ingenue-teasel-willful-addendum
+          image: influxdb:1.8
+          name: influxdb
           ports:
             - containerPort: 8086
           resources:
-            requests:
-              memory: "128Mi"
-              cpu: "500m"
             limits:
-              memory: "512Mi"
-              cpu: "900m"
+              cpu: 900m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 128Mi
           volumeMounts:
-            - name: influxdb-init
-              mountPath: /docker-entrypoint-initdb.d
+            - mountPath: /docker-entrypoint-initdb.d
+              name: influxdb-init
               readOnly: true
-        - name: grafana
-          image: grafana/grafana
-          env:
+        - env:
             - name: GF_SECURITY_ADMIN_USER
               valueFrom:
                 secretKeyRef:
-                  name: grafana
                   key: username
+                  name: grafana
             - name: GF_SECURITY_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: grafana
                   key: password
+                  name: grafana
+          image: grafana/grafana
+          name: grafana
           ports:
             - containerPort: 3000
           resources:
-            requests:
-              memory: "128Mi"
-              cpu: "100m"
             limits:
-              memory: "256Mi"
-              cpu: "300m"
+              cpu: 300m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
           volumeMounts:
-            - name: grafana-influxdb-yml
-              mountPath: /etc/grafana/provisioning/datasources
-            - name: grafana-overview-yml
-              mountPath: /etc/grafana/provisioning/dashboards
-            - name: grafana-overview-json
-              mountPath: /var/lib/grafana/dashboards
+            - mountPath: /etc/grafana/provisioning/datasources
+              name: grafana-influxdb-yml
+            - mountPath: /etc/grafana/provisioning/dashboards
+              name: grafana-overview-yml
+            - mountPath: /var/lib/grafana/dashboards
+              name: grafana-overview-json
       volumes:
-        - name: influxdb-init
-          configMap:
+        - configMap:
             name: influxdb
-        - name: grafana-influxdb-yml
-          configMap:
+          name: influxdb-init
+        - configMap:
             name: grafana-influxdb-yml
-        - name: grafana-overview-yml
-          configMap:
+          name: grafana-influxdb-yml
+        - configMap:
             name: grafana-overview-yml
-        - name: grafana-overview-json
-          configMap:
+          name: grafana-overview-yml
+        - configMap:
             name: grafana-overview-json
+          name: grafana-overview-json

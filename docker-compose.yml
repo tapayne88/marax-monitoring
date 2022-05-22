@@ -1,29 +1,28 @@
-version: "3"
-
+---
 services:
-  influxdb:
-    image: influxdb
-    container_name: influxdb
-    ports:
-      - 8086:8086
-    volumes:
-      - influxdb-storage:/var/lib/influxdb
-      - ./config/influxdb:/docker-entrypoint-initdb.d
   grafana:
-    image: grafana/grafana
     container_name: grafana
-    ports:
-      - 3000:3000
     depends_on:
       - influxdb
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD='Ns[fIA;)L?iYwL#A0bMH'
+    image: grafana/grafana
+    ports:
+      - '3000:3000'
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./config/grafana/provisioning:/etc/grafana/provisioning
       - ./config/grafana/dashboards:/var/lib/grafana/dashboards
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD='Ns[fIA;)L?iYwL#A0bMH'
-
+  influxdb:
+    container_name: influxdb
+    image: influxdb
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+      - ./config/influxdb:/docker-entrypoint-initdb.d
+version: '3'
 volumes:
-  grafana-storage:
-  influxdb-storage:
+  grafana-storage: null
+  influxdb-storage: null
