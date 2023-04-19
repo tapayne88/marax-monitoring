@@ -1,10 +1,19 @@
 #!/bin/sh
 
-# Sample LINE
-# C1.19,085,000,068,0000,0
+# Sample LINE (latter from newer version)
+# C1.19,085,116,068,0000,0
+# C123b,085,116,068,0000,0
+#
+# LINE parts (separated by ,) parsed as:
+#   - C1.19 - mode (Coffee or Vapour) and firmware version number
+#   - 085   - real/actual steam temperature in Celsius
+#   - 116   - target steam temperature in Celsius
+#   - 068   - real/actual heat exchanger temperature in Celsius
+#   - 0000  - countdown used to track if the machine is in "fast heating" mode, it seems to go anywhere from 1500-0. 0 means it's no longer boosting
+#   - 0     - heating element on/off, 0 is off, 1 is on
 
-while read LINE; do
-  if echo "$LINE" | grep -Eq "C\d{1}\.\d{2},\d{3},\d{3},\d{3},\d{4},\d{1}"; then
+while read -r LINE; do
+  if echo "$LINE" | grep -Eq "[^,]+,\d{3},\d{3},\d{3},\d{4},\d{1}"; then
     echo "$(date +%s),$LINE";
   else
     echo "Regex failed for line [$LINE]" >&2
