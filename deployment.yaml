@@ -18,6 +18,15 @@ spec:
       labels:
         app: marax
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
       containers:
         - env:
             - name: DOCKER_INFLUXDB_INIT_USERNAME
