@@ -42,11 +42,10 @@ spec:
             - containerPort: 8086
           resources:
             limits:
-              cpu: 200m
-              memory: 64Mi
+              memory: 200Mi
             requests:
               cpu: 100m
-              memory: 32Mi
+              memory: 150Mi
           volumeMounts:
             - mountPath: /docker-entrypoint-initdb.d
               name: influxdb-init
@@ -68,11 +67,10 @@ spec:
             - containerPort: 3000
           resources:
             limits:
-              cpu: 200m
-              memory: 64Mi
+              memory: 200Mi
             requests:
               cpu: 100m
-              memory: 32Mi
+              memory: 150Mi
           volumeMounts:
             - mountPath: /etc/grafana/provisioning/datasources
               name: grafana-influxdb-yml
