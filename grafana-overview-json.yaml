@@ -7,7 +7,10 @@ data:
         "list": [
           {
             "builtIn": 1,
-            "datasource": "-- Grafana --",
+            "datasource": {
+              "type": "datasource",
+              "uid": "grafana"
+            },
             "enable": true,
             "hide": true,
             "iconColor": "rgba(0, 211, 255, 1)",
@@ -42,6 +45,9 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -53,6 +59,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -102,10 +109,12 @@ data:
                 "lastNotNull"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.3.3",
@@ -203,6 +212,8 @@ data:
           },
           "id": 6,
           "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
             "orientation": "auto",
             "reduceOptions": {
               "calcs": [
@@ -214,7 +225,7 @@ data:
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "8.3.3",
+          "pluginVersion": "10.2.1",
           "targets": [
             {
               "alias": "",
@@ -275,6 +286,9 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -286,6 +300,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -357,7 +372,7 @@ data:
             "h": 4,
             "w": 17,
             "x": 0,
-            "y": 5
+            "y": 4
           },
           "id": 4,
           "options": {
@@ -366,16 +381,22 @@ data:
                 "lastNotNull"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.3.3",
           "targets": [
             {
               "alias": "Steam °C",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
               "groupBy": [
                 {
                   "params": [
@@ -413,6 +434,10 @@ data:
             },
             {
               "alias": "Target °C",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
               "groupBy": [
                 {
                   "params": [
@@ -457,35 +482,91 @@ data:
             "type": "influxdb",
             "uid": "P951FEA4DE68E13C5"
           },
-          "description": "Latest temperature from the steam wand",
+          "description": "State of heating element in the steam boiler, it can be on, off or standby",
           "fieldConfig": {
             "defaults": {
-              "decimals": 0,
-              "mappings": [],
+              "mappings": [
+                {
+                  "options": {
+                    "120": {
+                      "index": 3,
+                      "text": "Brew Mode Low"
+                    },
+                    "123": {
+                      "index": 4,
+                      "text": "Brew Mode Normal"
+                    },
+                    "126": {
+                      "index": 5,
+                      "text": "Brew Mode High"
+                    }
+                  },
+                  "type": "value"
+                },
+                {
+                  "options": {
+                    "from": 0,
+                    "result": {
+                      "index": 0,
+                      "text": "Standby"
+                    },
+                    "to": 1
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 1,
+                    "result": {
+                      "index": 1,
+                      "text": "Off"
+                    },
+                    "to": 2
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "from": 2,
+                    "result": {
+                      "index": 2,
+                      "text": "On"
+                    },
+                    "to": 3
+                  },
+                  "type": "range"
+                },
+                {
+                  "options": {
+                    "pattern": "^(124|128)$",
+                    "result": {
+                      "index": 6,
+                      "text": "Steam Mode"
+                    }
+                  },
+                  "type": "regex"
+                }
+              ],
+              "max": 2,
               "min": 0,
-              "noValue": "0",
+              "noValue": "Off",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "light-blue",
+                    "color": "blue",
                     "value": null
                   },
                   {
-                    "color": "dark-red",
-                    "value": 115
+                    "color": "super-light-orange",
+                    "value": 1
                   },
                   {
-                    "color": "red",
-                    "value": 120
-                  },
-                  {
-                    "color": "super-light-red",
-                    "value": 123
+                    "color": "semi-dark-red",
+                    "value": 2
                   }
                 ]
-              },
-              "unit": "degree"
+              }
             },
             "overrides": []
           },
@@ -493,10 +574,13 @@ data:
             "h": 4,
             "w": 7,
             "x": 17,
-            "y": 5
+            "y": 4
           },
-          "id": 11,
+          "id": 8,
           "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
             "orientation": "auto",
             "reduceOptions": {
               "calcs": [
@@ -505,13 +589,13 @@ data:
               "fields": "",
               "values": false
             },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "8.3.3",
+          "pluginVersion": "10.2.1",
           "targets": [
             {
-              "alias": "Actual Temp",
+              "alias": "Thermal coil",
               "datasource": {
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
@@ -533,7 +617,7 @@ data:
               "measurement": "tail",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"steamTempActual\") FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT floor(((mode(\"heatOn\") + 1) * median(\"steamTempTarget\")) / 100) FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -541,33 +625,48 @@ data:
                 [
                   {
                     "params": [
-                      "exchangerTempActual"
+                      "heatOn"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "last"
+                    "type": "mode"
                   }
                 ]
               ],
               "tags": []
             },
             {
-              "alias": "Target Temp",
+              "alias": "Mode",
               "datasource": {
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
+              "groupBy": [],
               "hide": false,
-              "query": "SELECT last(\"steamTempTarget\") FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
-              "rawQuery": true,
+              "measurement": "tail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"value\") FROM \"measurement\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+              "rawQuery": false,
               "refId": "B",
-              "resultFormat": "time_series"
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "steamTempTarget"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": []
             }
           ],
-          "title": "Steam Now",
-          "type": "gauge"
+          "title": "Heat Modes",
+          "type": "stat"
         },
         {
           "datasource": {
@@ -581,6 +680,9 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
@@ -592,6 +694,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -663,7 +766,7 @@ data:
             "h": 4,
             "w": 17,
             "x": 0,
-            "y": 10
+            "y": 8
           },
           "id": 10,
           "options": {
@@ -672,16 +775,22 @@ data:
                 "lastNotNull"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "8.3.3",
           "targets": [
             {
               "alias": "Mode",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
               "groupBy": [
                 {
                   "params": [
@@ -726,61 +835,35 @@ data:
             "type": "influxdb",
             "uid": "P951FEA4DE68E13C5"
           },
-          "description": "State of heating element in the steam boiler, it can be on, off or standby",
+          "description": "Latest temperature from the steam wand",
           "fieldConfig": {
             "defaults": {
-              "mappings": [
-                {
-                  "options": {
-                    "from": 2,
-                    "result": {
-                      "text": "On"
-                    },
-                    "to": 3
-                  },
-                  "type": "range"
-                },
-                {
-                  "options": {
-                    "from": 1,
-                    "result": {
-                      "text": "Off"
-                    },
-                    "to": 2
-                  },
-                  "type": "range"
-                },
-                {
-                  "options": {
-                    "from": 0,
-                    "result": {
-                      "text": "Standby"
-                    },
-                    "to": 1
-                  },
-                  "type": "range"
-                }
-              ],
-              "max": 2,
+              "decimals": 0,
+              "mappings": [],
               "min": 0,
-              "noValue": "Off",
+              "noValue": "0",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "blue",
+                    "color": "light-blue",
                     "value": null
                   },
                   {
-                    "color": "super-light-orange",
-                    "value": 1
+                    "color": "dark-red",
+                    "value": 115
                   },
                   {
-                    "color": "semi-dark-red",
-                    "value": 2
+                    "color": "red",
+                    "value": 120
+                  },
+                  {
+                    "color": "super-light-red",
+                    "value": 123
                   }
                 ]
-              }
+              },
+              "unit": "degree"
             },
             "overrides": []
           },
@@ -788,13 +871,12 @@ data:
             "h": 4,
             "w": 7,
             "x": 17,
-            "y": 10
+            "y": 8
           },
-          "id": 8,
+          "id": 11,
           "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
+            "minVizHeight": 75,
+            "minVizWidth": 75,
             "orientation": "auto",
             "reduceOptions": {
               "calcs": [
@@ -803,12 +885,17 @@ data:
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
           },
-          "pluginVersion": "8.3.3",
+          "pluginVersion": "10.2.1",
           "targets": [
             {
-              "alias": "Thermal coil",
+              "alias": "Actual Temp",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
               "groupBy": [
                 {
                   "params": [
@@ -826,7 +913,7 @@ data:
               "measurement": "tail",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT floor(((mode(\"heatOn\") + 1) * median(\"steamTempTarget\")) / 100) FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"steamTempActual\") FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -834,26 +921,37 @@ data:
                 [
                   {
                     "params": [
-                      "heatOn"
+                      "exchangerTempActual"
                     ],
                     "type": "field"
                   },
                   {
                     "params": [],
-                    "type": "mode"
+                    "type": "last"
                   }
                 ]
               ],
               "tags": []
+            },
+            {
+              "alias": "Target Temp",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "hide": false,
+              "query": "SELECT last(\"steamTempTarget\") FROM \"tail\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series"
             }
           ],
-          "title": "Heat On / Off / Standby",
-          "type": "stat"
+          "title": "Steam Now",
+          "type": "gauge"
         }
       ],
-      "refresh": "5s",
-      "schemaVersion": 34,
-      "style": "dark",
+      "refresh": "auto",
+      "schemaVersion": 38,
       "tags": [],
       "templating": {
         "list": []
