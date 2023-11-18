@@ -490,15 +490,15 @@ data:
                   "options": {
                     "120": {
                       "index": 3,
-                      "text": "Brew Mode Low"
+                      "text": "Low"
                     },
                     "123": {
                       "index": 4,
-                      "text": "Brew Mode Normal"
+                      "text": "Normal"
                     },
                     "126": {
                       "index": 5,
-                      "text": "Brew Mode High"
+                      "text": "High"
                     }
                   },
                   "type": "value"
@@ -541,7 +541,7 @@ data:
                     "pattern": "^(124|128)$",
                     "result": {
                       "index": 6,
-                      "text": "Steam Mode"
+                      "text": "Steam"
                     }
                   },
                   "type": "regex"
@@ -950,7 +950,7 @@ data:
           "type": "gauge"
         }
       ],
-      "refresh": "auto",
+      "refresh": "5s",
       "schemaVersion": 38,
       "tags": [],
       "templating": {
