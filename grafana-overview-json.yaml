@@ -496,9 +496,17 @@ data:
                       "index": 4,
                       "text": "Normal"
                     },
+                    "124": {
+                      "index": 6,
+                      "text": "Steam"
+                    },
                     "126": {
                       "index": 5,
                       "text": "High"
+                    },
+                    "128": {
+                      "index": 7,
+                      "text": "Steam"
                     }
                   },
                   "type": "value"
@@ -535,16 +543,6 @@ data:
                     "to": 3
                   },
                   "type": "range"
-                },
-                {
-                  "options": {
-                    "pattern": "^(124|128)$",
-                    "result": {
-                      "index": 6,
-                      "text": "Steam"
-                    }
-                  },
-                  "type": "regex"
                 }
               ],
               "max": 2,
