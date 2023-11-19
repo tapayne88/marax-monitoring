@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+data:
+  telegraf.conf: |
+    [agent]
+      interval = "10s"
+      round_interval = true
+      metric_batch_size = 1000
+      metric_buffer_limit = 10000
+      collection_jitter = "0s"
+      flush_interval = "10s"
+      flush_jitter = "0s"
+      precision = ""
+      debug = true
+      hostname = "marax-telegraf"
+    [[inputs.tail]]
+      files = ["/var/log/marax/marax.log"]
+      data_format = "csv"
+      csv_header_row_count = 0
+      csv_column_names = [
+        "time",
+        "mode-version",
+        "steamTempActual",
+        "steamTempTarget",
+        "exchangerTempActual",
+        "fastHeating",
+        "heatOn"
+      ]
+      csv_timestamp_column = "time"
+      csv_timestamp_format = "unix"
+      pipe = true
+      from_beginning = false
+      watch_method = "inotify"
+    [[outputs.influxdb]]
+      urls = ["http://influxdb:8086"]
+      database = "marax"
+    [[outputs.health]]
+      read_timeout = "5s"
+      write_timeout = "5s"
+      service_address = "http://:8080"
+      namepass = ["internal_write"]
+      tagpass = { output = ["influxdb"] }
+    [[outputs.health.compares]]
+      field = "buffer_size"
+      lt = 5000.0
+    [[outputs.health.contains]]
+      field = "buffer_size"
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: marax
+  name: telegraf-conf
+  namespace: marax

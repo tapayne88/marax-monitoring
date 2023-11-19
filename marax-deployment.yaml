@@ -1,0 +1,106 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    configmap.reloader.stakater.com/reload: telegraf-conf
+  labels:
+    app: marax
+  name: marax
+  namespace: marax
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marax
+  template:
+    metadata:
+      labels:
+        app: marax
+    spec:
+      containers:
+        - command:
+          - cat /dev/ttyUSB0 | while read -r line; do if [ "$line" != "" ]; then; echo "$(date +%s),$line"; fi; done | tee /var/log/marax/marax.log
+          image: busybox:latest
+          imagePullPolicy: Always
+          name: marxadapter
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /dev/ttyUSB0
+              name: ttyUSB0
+            - mountPath: /var/log/marax
+              name: maraxadapter
+        - image: telegraf
+          imagePullPolicy: Always
+          name: telegraf
+          ports:
+            - containerPort: 8080
+              name: healthcheck
+          readinessProbe:
+            httpGet:
+              port: healthcheck
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /etc/telegraf/telegraf.conf
+              name: telegraf-conf
+              subPath: telegraf.conf
+            - mountPath: /var/log/marax
+              name: maraxadapter
+        - env:
+            - name: DOCKER_INFLUXDB_INIT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: influxdb
+            - name: DOCKER_INFLUXDB_INIT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: influxdb
+            - name: DOCKER_INFLUXDB_INIT_ORG
+              value: marax
+            - name: DOCKER_INFLUXDB_INIT_BUCKET
+              value: default
+            - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+              value: ingenue-teasel-willful-addendum
+          image: influxdb:1.8
+          name: influxdb
+          ports:
+            - containerPort: 8086
+              name: influxdb
+          readinessProbe:
+            tcpSocket:
+              port: influxdb
+          resources:
+            limits:
+              cpu: 500m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 150Mi
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d
+              name: influxdb-init
+              readOnly: true
+      volumes:
+        - name: ttyUSB0
+          hostPath:
+            path: /dev/ttyUSB0
+        - name: maraxadapter
+          persistentVolumeClaim:
+            claimName: maraxadapter
+        - configMap:
+            name: influxdb
+          name: influxdb-init
