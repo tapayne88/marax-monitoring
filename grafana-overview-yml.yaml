@@ -29,6 +29,6 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    app.kubernetes.io/instance: marax
+    app: marax-grafana
   name: grafana-overview-yml
   namespace: marax

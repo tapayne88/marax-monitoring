@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    configmap.reloader.stakater.com/reload: grafana-influxdb-yml,grafana-overview-json,grafana-overview-yml
+  labels:
+    app: marax-grafana
+  name: marax-grafana
+  namespace: marax
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: marax-grafana
+  template:
+    metadata:
+      labels:
+        app: marax-grafana
+    spec:
+      containers:
+        - env:
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: grafana
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: grafana
+          image: grafana/grafana
+          name: grafana
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: "1"
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 150Mi
+          volumeMounts:
+            - mountPath: /etc/grafana/provisioning/datasources
+              name: grafana-influxdb-yml
+            - mountPath: /etc/grafana/provisioning/dashboards
+              name: grafana-overview-yml
+            - mountPath: /var/lib/grafana/dashboards
+              name: grafana-overview-json
+      volumes:
+        - configMap:
+            name: grafana-influxdb-yml
+          name: grafana-influxdb-yml
+        - configMap:
+            name: grafana-overview-yml
+          name: grafana-overview-yml
+        - configMap:
+            name: grafana-overview-json
+          name: grafana-overview-json
