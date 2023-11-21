@@ -8,7 +8,7 @@ services:
     volumes:
       - marax-storage:/var/log/marax
   telegraf:
-    image: telegraf:1.21
+    image: telegraf:1.28
     depends_on:
       - influxdb
       - marax-adapter
@@ -23,7 +23,7 @@ services:
       - influxdb-storage:/var/lib/influxdb
       - ./config/influxdb:/docker-entrypoint-initdb.d
   grafana:
-    image: grafana/grafana:8.3.3
+    image: grafana/grafana:10.1.2
     ports:
       - 3000:3000
     depends_on:

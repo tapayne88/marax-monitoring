@@ -1,10 +1,9 @@
-FROM alpine:3.15
+FROM alpine:3.18
 
-RUN apk add alpine-conf
-RUN setup-timezone -z UTC
-RUN apk del alpine-conf
-
-RUN apk add screen
+RUN apk --no-cache add alpine-conf \
+	&& setup-timezone -z UTC \
+	&& apk del alpine-conf \
+	&& apk --no-cache add screen
 
 COPY ./timestamp-line /usr/local/bin/timestamp-line
 RUN chmod +x /usr/local/bin/timestamp-line
@@ -15,8 +14,8 @@ RUN chmod +x /etc/periodic/daily/logtruncate
 COPY ./screenrc /etc/screenrc
 
 RUN mkdir /var/log/marax
-RUN touch /var/log/marax/screen.log
-RUN touch /var/log/marax/stdout.log
-RUN touch /var/log/marax/stderr.log
+RUN touch /var/log/marax/screen.log \
+	&& touch /var/log/marax/stdout.log \
+	&& touch /var/log/marax/stderr.log
 
 CMD ["/bin/sh", "-c", "crond -b -l 8 && screen -S serial-marax -L -d -m -c /etc/screenrc /dev/ttyUSB0 9600,crtscts && tail -f /var/log/marax/screen.log | timestamp-line 2>/var/log/marax/stderr.log | tee -a /var/log/marax/stdout.log"]
